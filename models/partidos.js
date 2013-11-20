@@ -1,6 +1,6 @@
 module.exports = function(sequelize, Seq){
 
-return sequelize.define('usuario',{
+return sequelize.define('partidos',{
    
    id : { 
        type : Seq.INTEGER, 
@@ -8,7 +8,7 @@ return sequelize.define('usuario',{
    }
 } ,{
 	timestamps: false,
-	tableName : "usuario"
+	tableName : "partidos"
 });
 
 };

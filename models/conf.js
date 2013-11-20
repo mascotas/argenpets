@@ -1,7 +1,7 @@
-var Sequelize = require("sequelize")
 
-var sequelize = new Sequelize('pet', 'root', 'abc789',{
-	language: 'en'
-} );
+exports.database = {
+  database : 'DATOS',
+  username : 'DATOS',
+  password : 'DATOS'  
+};
 
-module.exports = sequelize;

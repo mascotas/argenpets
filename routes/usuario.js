@@ -4,6 +4,9 @@
 module.exports = function(app){
 
 Get = function(req, res) {
+  var user = app.get('models').usuarios;
+  //HACES LO QUE QUIERAS
+  
   console.log("GET");
 };
 
