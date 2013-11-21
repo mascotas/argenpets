@@ -1,8 +1,5 @@
-
 exports.database = {
-  database : 'DATOS',
-  username : 'DATOS',
-  password : 'DATOS'  
+	database : 'mascotas',
+	username : 'root',
+	password : 'root'  
 };
-
-

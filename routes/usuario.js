@@ -1,25 +1,27 @@
 module.exports = function(app){
 
 Get = function(req, res) {
-		var user = app.get('models').usuarios;
-  //HACES LO QUE QUIERAS
-  
-  console.log("GET");
+	var user = app.get('models').usuarios;
+
+	user.find({where: {id: 1}}).success(function(post) {
+        console.log(post);
+    }).error(function(err) {
+        console.log(err);
+    })
 };
 
 Delete = function(req, res) {
 	console.log("DELETE");
 
-
 	var usuario = require('../models/usuario');
-		/*
-		usuario.FindOne(  { id : req.body.id }, function(err, result, fields){
-			if(!err){
-				console.log(result);
-			}else{
-				console.log(err);
-			}
-		});
+	/*
+	usuario.FindOne(  { id : req.body.id }, function(err, result, fields){
+		if(!err){
+			console.log(result);
+		}else{
+			console.log(err);
+		}
+	});
 */
 };
 
@@ -36,7 +38,6 @@ Put = function(req, res) {
 
 
 controller = function(app){
-
 	app.get('/usuario?*', this.Get );
 
 	app.post('/usuario', this.Post);
@@ -44,7 +45,6 @@ controller = function(app){
 	app.delete('/usuario/*', this.Delete);
 
 	app.put('/usuario/*', this.Put);
-
 };
 
 controller(app);
