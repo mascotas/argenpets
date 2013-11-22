@@ -2,12 +2,13 @@
 
 
 module.exports = function(app){
+  var user = app.get('models').usuarios;
 
 Get = function(req, res) {
-  var user = app.get('models').usuarios;
   //HACES LO QUE QUIERAS
-  
-  console.log("GET");
+  user.find(req.params[0]).success(function(datas){
+    res.send(datas);
+  });
 };
 
 Delete = function(req, res) {
@@ -15,7 +16,13 @@ Delete = function(req, res) {
 };
 
 Post = function(req, res) {
-  console.log("POST");
+	user.create({
+       'nombre' : 'Seasdasda'
+	}).success(function(user){
+         res.send(user);
+	}).error(function(err){
+		res.send(err);
+	});
 };
 
 Put = function(req, res) {
@@ -27,7 +34,7 @@ Put = function(req, res) {
 controller = function(app){
 
  app.get('/usuario/*', this.Get );
-
+ app.get('/newUsuario', this.Post );
  app.post('/usuario/*', this.Post);    
 
  app.delete('/usuario/*', this.Delete);    

@@ -4,10 +4,18 @@ return sequelize.define('partidos',{
    
    id : { 
        type : Seq.INTEGER, 
-       primaryKey: true
-   }
+       primaryKey: true, 
+       autoIncrement: true
+   },
+   nombre : {
+   	  type : Seq.STRING(50),
+    validate: {
+      len: [5, 49]
+    }
+  }
+
 } ,{
-	timestamps: false,
+	
 	tableName : "partidos"
 });
 

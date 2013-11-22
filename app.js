@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 
-app.set('models', require('./models'));
+app.set( 'models', require('./models') );
 
 
 app.use(express.bodyParser());
