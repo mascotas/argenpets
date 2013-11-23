@@ -1,45 +1,23 @@
-var Seq = require('sequelize');
-var seq = require('./conf.js');
+module.exports = function(sequelize, Seq){
 
-var Usuario = seq.define('usuario', {
-   id : { 
-      type : Seq.INTEGER, 
-      primaryKey: true
-   },
-   email : {
-      type : Seq.STRING(100),
-      validate : {
-         isEmail : true
-      }
-   },
-   password : {
-      type : Seq.STRING(100),
-      validate : {
-         len : [ 6, 100 ]
-      }
-   },
-   estado : {
-      type : Seq.INTEGER
-   },
-   fecha : {
-      type : Seq.DATE
-   },
-   tipo_usuario_id : {
-      type : Seq.INTEGER
-   },
-   direccion : {
-      type : Seq.STRING(100)
-   },
-   localidad_id : {
-      type : Seq.INTEGER
-   },
-   apodo : {
-      type : Seq.STRING(80)
-   }
-},{
-   timestamps: false,
-	tableName : "usuario",
-	freezeTableName: true
-});
-
-module.exports = Usuario;
+	return sequelize.define('usuario', {
+		id : { 
+			type : Seq.INTEGER, 
+			primaryKey: true, 
+			autoIncrement: true
+		},
+		nombre : {
+			type : Seq.STRING(50),
+			validate: {
+				len: [5, 49]
+			}
+		},
+		rol_id: {
+	      type: Seq.INTEGER,
+	      references: "rol",
+	      referencesKey: "id"
+	    }
+	},{
+		tableName : "usuario"
+	});
+};

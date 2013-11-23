@@ -1,62 +1,76 @@
 module.exports = function(app){
-  var user = app.get('models').usuarios;
+	var Usuario = app.get('models').usuario;
 
-Get = function(req, res) {
+	Get = function(req, res) {
+		console.log(req.params);
 
-	var user = app.get('models').usuarios;
+		User.all().success(function(users) {
+			console.log(users);
+		})
+		
+		/*
 
-	user.find({where: {id: 1}}).success(function(post) {
-        console.log(post);
-    }).error(function(err) {
-        console.log(err);
-    })
+		user.getRols().success(function(response) {
+	  		console.log(response)
+		})
+		*/
 
-};
+	};
 
-Delete = function(req, res) {
-	console.log("DELETE");
+	Delete = function(req, res) {
+		console.log("DELETE");
+	};
 
-	var usuario = require('../models/usuario');
-	/*
-	usuario.FindOne(  { id : req.body.id }, function(err, result, fields){
-		if(!err){
-			console.log(result);
-		}else{
-			console.log(err);
-		}
-	});
-*/
-};
+	Post = function(req, res) {
+		var Rol = app.get('models').rol;
 
-Post = function(req, res) {
+		/*
+		Rol.create({
+	       'nombre' : 'admin',
+	       'estado' : 1
+		}).success(function(rol){
+	        res.send(rol.dataValues);
+		}).error(function(err){
+			res.send(err);
+		});*/
 
-	user.create({
-       'nombre' : 'Seasdasda'
-	}).success(function(user){
-         res.send(user);
-	}).error(function(err){
-		res.send(err);
-	});
+		//console.log(req.body);
+
+		Rol.find({
+			where: {nombre: 'admin'}
+		}).success(function(rol){
+			if(rol){
+				req.body.rol_id = rol.id;
+				console.log(req.body);
+				Usuario.create(req.body).success(function(usuario){
+					res.send(usuario.dataValues);
+				}).error(function(err){
+					res.send(err);
+				});
+
+			}else{
+				res.send('No existe el rol para el usuario');
+			}
+		})
+
+		/*
+		;*/
+
+	};
+
+	Put = function(req, res) {
+		console.log("PUT");
+	};
 
 
-};
+	controller = function(app){
+		app.get('/usuario/*', this.Get );
+		app.post('/usuario', this.Post);    
+		app.delete('/usuario/*', this.Delete);    
+		app.put('/usuario/*', this.Put);
+	};
 
-Put = function(req, res) {
-	console.log("PUT");
-};
-
-
-controller = function(app){
-
-
- app.get('/usuario/*', this.Get );
- app.get('/newUsuario', this.Post );
- app.post('/usuario/*', this.Post);    
- app.delete('/usuario/*', this.Delete);    
-	app.put('/usuario/*', this.Put);
-};
-
-controller(app);
+	controller(app);
 }
 
 

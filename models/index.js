@@ -5,27 +5,27 @@ var sequelize = new Sequelize(
 	config.database,
 	config.username,
 	config.password
-	
-	});
+	);
 
-
-var models = [ 'partidos',
+var models = [ 
+'partidos',
 'usuario_partido',
-'usuarios'
+'usuario',
+'rol'
 ];
-
-
 
 models.forEach(function(model){
 	module.exports[model] = sequelize.import( __dirname + "/" + model );
 });
-(function(m){
 
-	m.usuarios.hasMany( m.partidos, {  joinTableModel : m.usuario_partido, foreignKey : 'usuario_id', foreignKeyConstraint: true, allowNull: false } );
-	m.partidos.hasMany( m.usuarios, {  joinTableModel : m.usuario_partido, foreignKey : 'partido_id', foreignKeyConstraint: true, allowNull: false } );
+(function(m){
+	//m.usuario.hasMany( m.partidos, {  joinTableModel : m.usuario_partido, foreignKey : 'usuario_id', foreignKeyConstraint: true, allowNull: false } );
+	//m.partidos.hasMany( m.usuario, {  joinTableModel : m.usuario_partido, foreignKey : 'partido_id', foreignKeyConstraint: true, allowNull: false } );
+
+	m.rol.hasMany(m.usuario, { foreignKey: 'rol_id', foreignKeyConstraint: true});
+	//m.rol.hasOne(m.usuario);
 
 })(module.exports);
 
 
 module.exports.sequelize = sequelize;
-
