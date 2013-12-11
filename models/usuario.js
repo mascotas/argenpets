@@ -7,17 +7,45 @@ module.exports = function(sequelize, Seq){
 			autoIncrement: true
 		},
 		nombre : {
-			type : Seq.STRING(50),
+			type : Seq.STRING(51),
+			allowNull: true,
 			validate: {
-				len: [5, 49]
+				len: [2, 50]
+			}
+		},
+		apellido : {
+			type : Seq.STRING(51),
+			allowNull: true,
+			validate: {
+				len: [2, 50]
 			}
 		},
 		rol_id: {
-	      type: Seq.INTEGER,
-	      references: "rol",
-	      referencesKey: "id"
-	    }
+	      	type: Seq.INTEGER,
+	      	references: "rol",
+	      	referencesKey: "id"
+	    },
+	    email: {
+	    	type: Seq.STRING,
+	    	unique: true,
+	    	allowNull: false,
+	    	validate : {
+            	isEmail : true
+          	}
+	    },
+	    password : {
+            type : Seq.STRING(100),
+            allowNull: false,
+            validate : {
+                len : [ 6, 100 ]
+            }
+   		},
+	    nickname : {
+		    type : Seq.STRING(80),
+		    unique: true
+		}
 	},{
+		timestamps: false,
 		tableName : "usuario"
 	});
 };

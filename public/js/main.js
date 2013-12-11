@@ -27,8 +27,7 @@ require([
 	"underscore", 
 	"backbone", 
 	"routers/router", 
-	"bootstrap",
+	//"bootstrap",
 	], function($, _, Backbone, Router){
-		new Router();
-		Backbone.history.start();
+		window.router = new Router();		
 	});

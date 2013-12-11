@@ -2,19 +2,21 @@ module.exports = function(app){
 	var Usuario = app.get('models').usuario;
 
 	Get = function(req, res) {
-		console.log(req.params);
-
-		User.all().success(function(users) {
-			console.log(users);
+		Usuario.find(req.params[0]).success(function(usuario) {
+			console.log(usuario);
 		})
-		
-		/*
 
-		user.getRols().success(function(response) {
-	  		console.log(response)
+		Usuario.find({
+			where: {nickname: req.params[0]},
+		}).success(function(usuario) {
+			console.log(usuario);
 		})
-		*/
+	};
 
+	List = function(req, res){
+		Usuario.all().success(function(usuarios) {
+			res.send(usuarios)
+		})
 	};
 
 	Delete = function(req, res) {
@@ -24,7 +26,6 @@ module.exports = function(app){
 	Post = function(req, res) {
 		var Rol = app.get('models').rol;
 
-		/*
 		Rol.create({
 	       'nombre' : 'admin',
 	       'estado' : 1
@@ -32,7 +33,7 @@ module.exports = function(app){
 	        res.send(rol.dataValues);
 		}).error(function(err){
 			res.send(err);
-		});*/
+		});
 
 		//console.log(req.body);
 
@@ -45,6 +46,8 @@ module.exports = function(app){
 				Usuario.create(req.body).success(function(usuario){
 					res.send(usuario.dataValues);
 				}).error(function(err){
+					if(err.code == "ER_DUP_ENTRY")
+						err.code = "Ya existe un usuario registrado con ese mail";
 					res.send(err);
 				});
 
@@ -62,8 +65,16 @@ module.exports = function(app){
 		console.log("PUT");
 	};
 
+	Show = function(req, res){
+		console.log(req.params);
+	};
+
 
 	controller = function(app){
+		//app.get('/:usuario', this.Show);
+		//app.get('/:usuario/*', this.Show);
+
+		app.get('/usuario', this.List );
 		app.get('/usuario/*', this.Get );
 		app.post('/usuario', this.Post);    
 		app.delete('/usuario/*', this.Delete);    

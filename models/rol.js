@@ -12,7 +12,7 @@ module.exports = function(sequelize, Seq){
 		estado : {
 			type : Seq.INTEGER
 		}
-	}, {
+	},{
 		timestamps: false,
 		tableName : "rol"
 	});

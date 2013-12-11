@@ -1,17 +1,18 @@
 var Sequelize  = require('sequelize');
 var config  = require('./conf').database;
 
-var sequelize = new Sequelize(
-	config.database,
-	config.username,
-	config.password
-	);
+var sequelize = new Sequelize(config.database, config.username, config.password, {
+		sync: { force: true },
+		syncOnAssociation: true
+	}
+);
 
 var models = [ 
-'partidos',
-'usuario_partido',
+'rol',
 'usuario',
-'rol'
+'mascota',
+'mascotas',
+'tipo_mascota'
 ];
 
 models.forEach(function(model){
@@ -23,7 +24,8 @@ models.forEach(function(model){
 	//m.partidos.hasMany( m.usuario, {  joinTableModel : m.usuario_partido, foreignKey : 'partido_id', foreignKeyConstraint: true, allowNull: false } );
 
 	m.rol.hasMany(m.usuario, { foreignKey: 'rol_id', foreignKeyConstraint: true});
-	//m.rol.hasOne(m.usuario);
+	m.usuario.hasMany( m.mascota, {  joinTableModel : m.mascotas, foreignKey : 'usuario_id', foreignKeyConstraint: true, allowNull: false } );
+	m.mascota.hasMany( m.usuario, {  joinTableModel : m.mascotas, foreignKey : 'mascota_id', foreignKeyConstraint: true, allowNull: false } );
 
 })(module.exports);
 
