@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<% include head %>
+
+<body>
+	<form class="text-center" role="form" action="/register" method="post">
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<input type="email" name="email" class="form-control" placeholder="What's your email address?">
+		</div>
+
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" name="password" class="form-control" placeholder="Choose a password">
+		</div>
+
+		<div class="form-group">
+			<label for="repassword">Password</label>
+			<input type="password" name="repassword" class="form-control" placeholder="Re-type password">
+		</div>
+
+		<% if(typeof error != "undefined"){ %>
+			<div class="alert alert-danger"><%= error %></div>
+		<% }; %>
+
+		<button type="submit" class="btn btn-default">Registrarme</button>
+	</form>
+
+</body>
+
+<script type="text/javascript" src="js/lib/jquery.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.js"></script>
+</html>

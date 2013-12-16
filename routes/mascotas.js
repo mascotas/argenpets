@@ -6,8 +6,22 @@ module.exports = function(app){
 	};
 
 	List = function(req, res){
-		console.log('ok');
-		console.log(req.params);
+		var Usuario = app.get('models').usuario
+
+		Usuario.find({
+			where: {nickname: req.query.user}
+		}).success(function(usuario){
+			if(usuario){
+				Mascotas.find({
+					where: {usuario_id: usuario.id}
+				}).success(function(mascotas){
+					res.send(mascotas);
+				})
+			}else{
+				res.send('no se encuentra usuario');
+			}
+		})
+		
 	};
 
 	Delete = function(req, res) {
@@ -32,6 +46,4 @@ module.exports = function(app){
 
 	controller(app);
 }
-
-
 

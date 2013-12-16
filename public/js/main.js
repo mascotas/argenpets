@@ -9,6 +9,9 @@ require.config({
 		},
 		"bootstrap" : {
 			"deps" : ["jquery"]
+		},
+		'facebook' : {
+			export: 'FB'
 		}
 	},
 	paths :{
@@ -17,6 +20,7 @@ require.config({
 		"backbone" : "lib/backbone",
 		"text": "lib/text", //require.js text
 		"bootstrap" : "lib/bootstrap",
+		'facebook': '//connect.facebook.net/en_US/all',
 		"alertify" : "lib/alertify"
 	}
 });
@@ -27,7 +31,8 @@ require([
 	"underscore", 
 	"backbone", 
 	"routers/router", 
-	//"bootstrap",
-	], function($, _, Backbone, Router){
+	"bootstrap",
+	"fb"
+	], function($, _, Backbone, Router, FB){
 		window.router = new Router();		
 	});

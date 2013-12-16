@@ -5,12 +5,6 @@ module.exports = function(app){
 		Usuario.find(req.params[0]).success(function(usuario) {
 			console.log(usuario);
 		})
-
-		Usuario.find({
-			where: {nickname: req.params[0]},
-		}).success(function(usuario) {
-			console.log(usuario);
-		})
 	};
 
 	List = function(req, res){

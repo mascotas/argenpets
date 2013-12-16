@@ -13,11 +13,12 @@ app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 
-app.set( 'models', require('./models') );
-
+app.set('models', require('./models') );
 
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser('asdasdasd'));
+app.use(express.cookieSession());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 

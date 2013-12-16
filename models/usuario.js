@@ -37,12 +37,13 @@ module.exports = function(sequelize, Seq){
             type : Seq.STRING(100),
             allowNull: false,
             validate : {
-                len : [ 6, 100 ]
+                len : [ 3, 100 ]
             }
    		},
 	    nickname : {
 		    type : Seq.STRING(80),
-		    unique: true
+		    unique: true,
+		    allowNull: true
 		}
 	},{
 		timestamps: false,

@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.css" />
-  	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-  	<link rel="stylesheet" type="text/css" href="/css/lib/animate.css" />
-  	<!--
-  	<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css" />
-  	-->
-  	<link rel="stylesheet" type="text/css" href="/css/lib/alertify-core.css" />
-  	<link rel="stylesheet" type="text/css" href="/css/lib/alertify-bootstrap.css" />
-</head>
+<% include head %>
 
-<body id="app"></body>
+<body>
+	<% if(typeof usuarioLogeado == "undefined" || usuarioLogeado == false){ %>
+		<% include menuLogin %>
+	<% }else{ %>
+		<% include menu %>
+	<% }; %>
+
+	<div id="app"></div>
+</body>
 
 <script type="text/javascript" src="js/lib/require.js" data-main="js/main"></script>
 </html>
