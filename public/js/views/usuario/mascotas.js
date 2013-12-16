@@ -7,7 +7,7 @@ define([
   ], function($, _, Backbone, MascotasList, usuarioMascotasTemplate){
 
     var UsuarioMascotasView = Backbone.View.extend({
-      className: "container",
+      className: "row",
       events : {
       },
       initialize: function (user) {
