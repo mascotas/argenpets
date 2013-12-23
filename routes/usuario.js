@@ -18,6 +18,7 @@ module.exports = function(app){
 	};
 
 	Post = function(req, res) {
+		/*
 		var Rol = app.get('models').rol;
 
 		Rol.create({
@@ -28,15 +29,14 @@ module.exports = function(app){
 		}).error(function(err){
 			res.send(err);
 		});
-
-		//console.log(req.body);
+		*/
 
 		Rol.find({
 			where: {nombre: 'admin'}
 		}).success(function(rol){
 			if(rol){
 				req.body.rol_id = rol.id;
-				console.log(req.body);
+				
 				Usuario.create(req.body).success(function(usuario){
 					res.send(usuario.dataValues);
 				}).error(function(err){

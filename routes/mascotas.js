@@ -2,7 +2,7 @@ module.exports = function(app){
 	var Mascotas = app.get('models').mascotas;
 
 	Get = function(req, res) {
-
+		console.log('get');
 	};
 
 	List = function(req, res){
@@ -15,7 +15,7 @@ module.exports = function(app){
 				Mascotas.find({
 					where: {usuario_id: usuario.id}
 				}).success(function(mascotas){
-					res.send(mascotas);
+					res.json(mascotas);
 				})
 			}else{
 				res.send('no se encuentra usuario');
@@ -29,7 +29,6 @@ module.exports = function(app){
 	};
 
 	Create = function(req, res) {
-		
 
 	};
 

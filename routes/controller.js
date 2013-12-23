@@ -9,7 +9,7 @@ module.exports = function(app){
 		if(typeof req.session.id == "undefined")
 			res.render('home', { 'usuarioLogeado' : false, 'user' : 'no'});
 		else
-			res.render('home', { 'usuarioLogeado' : true, 'user': req.session.user});
+			res.render('home', { 'usuarioLogeado' : true, 'user': req.session.user, 'isAdmin' : true});
 	} );
 
 	indexRoute(app);

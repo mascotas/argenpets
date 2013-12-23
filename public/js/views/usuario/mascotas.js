@@ -3,12 +3,14 @@ define([
   "underscore",
   "backbone",
   "collections/mascotas",
-  'text!templates/usuario/mascotas.html',
-  ], function($, _, Backbone, MascotasList, usuarioMascotasTemplate){
+  "views/mascota/new",
+  'text!templates/usuario/mascotas.html'
+  ], function($, _, Backbone, MascotasList, NewMascotaView, usuarioMascotasTemplate){
 
     var UsuarioMascotasView = Backbone.View.extend({
       className: "row",
       events : {
+        'click .addMascota' : 'nuevaMascota'
       },
       initialize: function (user) {
         this.template = _.template(usuarioMascotasTemplate);
@@ -32,7 +34,13 @@ define([
         this.delegateEvents();
 
         return this;
+      },
+      nuevaMascota: function(){
+        var view = new NewMascotaView();
+
+        $('#info').html(view.render().el);
       }
+
     });
 
     return UsuarioMascotasView;

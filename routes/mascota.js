@@ -53,13 +53,24 @@ module.exports = function(app){
 		console.log("PUT");
 	};
 
+	Tipos = function(req, res){
+		var TipoMascota = app.get('models').tipo_mascota;
+console.log("tipos");
+		TipoMascota.all().success(function(tiposMascota) {
+			console.log(tiposMascota);
+		})
+
+		console.log('tipos');
+	}
 
 	controller = function(app){
 		app.get('/mascota', this.Create );
+		app.get('/mascota/tipos', this.Tipos);
 		app.get('/mascota/*', this.Get );
 		app.post('/mascota', this.Post);    
 		app.delete('/mascota/*', this.Delete);    
 		app.put('/mascota/*', this.Put);
+		
 	};
 
 	controller(app);
