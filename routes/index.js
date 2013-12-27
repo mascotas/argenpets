@@ -9,31 +9,66 @@ module.exports = function(app){
 
 	Registrar = function(req, res) {
 		var Usuario = app.get('models').usuario;
+		var Rol = app.get('models').rol;
 
 		if(req.body.password != req.body.repassword)
 			res.render('register', {'error' : 'Passwords no coinciden'});
 
-		req.body.rol_id = 1; //TODO: quitar hardcodeo
+		
 		delete req.body.repassword
 
-		Usuario.create(req.body).success(function(usuario){
-			usuario.nickname = 'u' + usuario.dataValues.id;
+		//TODO: quitar hardcodeo
+		Rol.find(1).success(function(rol) {
+			if(rol){
+				req.body.rol_id = rol.dataValues.id;
+				Usuario.create(req.body).success(function(usuario){
+					usuario.nickname = 'u' + usuario.dataValues.id;
 
-			usuario.save().success(function(){
+					usuario.save().success(function(){
 
-				req.session = { 
-					id : usuario.dataValues.id,
-					user: usuario.nickname
-				};
+						req.session = { 
+							id : usuario.dataValues.id,
+							user: usuario.nickname
+						};
 
-				res.redirect('/');
-			});
-			
-		}).error(function(err){
-			if(err.code == "ER_DUP_ENTRY")
-				err.code = "Ya existe un usuario registrado con ese mail";
-			res.render('register', {'error' : err.code});
+						res.redirect('/');
+					});
+
+				}).error(function(err){
+					if(err.code == "ER_DUP_ENTRY")
+						err.code = "Ya existe un usuario registrado con ese mail";
+					res.render('register', {'error' : err.code});
+				});
+			}else{
+				Rol.create({
+					'nombre' : 'admin',
+					'estado' : 1
+				}).success(function(newRol){
+					Usuario.create(req.body).success(function(usuario){
+						usuario.nickname = 'u' + usuario.dataValues.id;
+						usuario.rol_id = newRol.dataValues.id;
+
+						usuario.save().success(function(){
+
+							req.session = { 
+								id : usuario.dataValues.id,
+								user: usuario.nickname
+							};
+
+							res.redirect('/');
+						});
+
+					}).error(function(err){
+						if(err.code == "ER_DUP_ENTRY")
+							err.code = "Ya existe un usuario registrado con ese mail";
+						res.render('register', {'error' : err.code});
+					});
+				}).error(function(err){
+					res.send(err);
+				});
+			}
 		});
+
 	};
 
 	Login = function(req, res){
@@ -55,7 +90,7 @@ module.exports = function(app){
 					id : usuario.dataValues.id,
 					user: usuario.dataValues.nickname
 				};
-				
+
 				res.redirect('/');
 			}else{
 				res.render('login', {'error' : 'Usuario o password incorrectos'});
@@ -77,6 +112,6 @@ module.exports = function(app){
 		app.post('/login', this.Logear)
 	};
 
-	controller(app);
+controller(app);
 }
 

@@ -24,6 +24,9 @@ module.exports = function(app){
 	};
 
 	Create = function(req, res) {
+		console.log(req.params);
+		res.send({asd: 1});
+
 		var TipoMascota = app.get('models').tipo_mascota;
 		var Usuario = app.get('models').usuario;
 
@@ -55,12 +58,22 @@ module.exports = function(app){
 
 	Tipos = function(req, res){
 		var TipoMascota = app.get('models').tipo_mascota;
-console.log("tipos");
-		TipoMascota.all().success(function(tiposMascota) {
-			console.log(tiposMascota);
-		})
+		
+		/*
+		TipoMascota.create({
+	       'nombre' : 'perro',
+	       'tipo_mascota_id': null
+		}).success(function(tipoMascota){
+			console.log(tipoMascota);
+	        res.send(tipoMascota.dataValues);
+		}).error(function(err){
+			console.log(err);
+			res.send(err);
+		});*/
 
-		console.log('tipos');
+		TipoMascota.all().success(function(tiposMascota) {
+			res.send(tiposMascota);
+		})
 	}
 
 	controller = function(app){

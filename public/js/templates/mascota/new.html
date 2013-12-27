@@ -1,3 +1,25 @@
-<form role="form">
-	
+<form role="form" id="new-mascota-form" enctype="multipart/form-data">
+	<div class="form-group">
+		<label for="nombre">Nombre</label>
+		<input name="nombre" type="text" class="form-control" placeholder="Nombre">
+	</div>
+	<div class="form-group">
+		<select name="tipo" class="selectpicker form-control">
+			<option value="">Tipo</option>
+			<% _.each(tiposMascota, function(tipoMascota) { %> 
+			<option value="<%= tipoMascota.id %>"><%= tipoMascota.nombre %></option>
+			<% }); %>
+		</select>
+	</div>
+	<div class="form-group">
+		<input name="avatar" type="file">
+	</div>
+	<div class="form-group" id="manager-area">
+
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-success pull-left crear">Crear</button>
+		<button id="cancelar" class="btn btn-default pull-right cancelar">Cancelar</button>
+	</div>
+
 </form>

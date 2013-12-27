@@ -17,7 +17,6 @@ define([
 			},
 			mascotasUsuario: function(user){
 				if(_.isUndefined(window.view.misMascotasView)){
-					console.log(user);
 					window.view.misMascotasView = new MascotasUsuarioView({user: user});
 					$('#page').html(window.view.misMascotasView.render().el);
 				}else{

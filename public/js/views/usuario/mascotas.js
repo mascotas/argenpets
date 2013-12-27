@@ -21,7 +21,7 @@ define([
         this.mascotas.fetch({
           data: user,
           success: function(mascotas){
-            console.log(mascotas)
+
           }
         })
 
@@ -37,6 +37,7 @@ define([
       },
       nuevaMascota: function(){
         var view = new NewMascotaView();
+        view.bind("cancelar", this.render, this);
 
         $('#info').html(view.render().el);
       }

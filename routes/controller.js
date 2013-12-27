@@ -3,7 +3,14 @@ module.exports = function(app){
 	var indexRoute = require('./index');
 	var usuarioRoute = require('./usuario');
 	var mascotaRoute = require('./mascota');
-	var mascotasRoute = require('./mascotas');
+
+	app.get('/upload', function(req, res){
+		console.log('get upload');
+	});
+
+	app.post('/upload', function(req, res){
+		console.log('post upload');
+	});	
 
 	app.get('/',  function(req, res) {
 		if(typeof req.session.id == "undefined")
@@ -21,6 +28,5 @@ module.exports = function(app){
 
 	usuarioRoute(app);
 	mascotaRoute(app);
-	mascotasRoute(app);
 
 };

@@ -63,12 +63,31 @@ module.exports = function(app){
 		console.log(req.params);
 	};
 
+	Mascotas = function(req, res){
+		var Mascotas = app.get('models').mascotas;
+		
+		Usuario.find({
+			where: {nickname: req.query.user}
+		}).success(function(usuario){
+			if(usuario){
+				Mascotas.find({
+					where: {usuario_id: usuario.id}
+				}).success(function(mascotas){
+					res.json(mascotas);
+				})
+			}else{
+				res.send('no se encuentra usuario');
+			}
+		})
+	};
+
 
 	controller = function(app){
 		//app.get('/:usuario', this.Show);
 		//app.get('/:usuario/*', this.Show);
 
 		app.get('/usuario', this.List );
+		app.get('/usuario/mascotas', this.Mascotas);
 		app.get('/usuario/*', this.Get );
 		app.post('/usuario', this.Post);    
 		app.delete('/usuario/*', this.Delete);    

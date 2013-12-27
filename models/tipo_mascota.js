@@ -13,7 +13,10 @@ module.exports = function(sequelize, Seq){
 	      	type: Seq.INTEGER,
 	      	allowNull: true,
 	      	references: "tipo_mascota",
-	      	referencesKey: "id"
+	      	referencesKey: "id",
+	      	validate: {
+	      		notNull: false
+	      	}
 	    }
 	},{
 		timestamps: false,
