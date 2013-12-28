@@ -27,6 +27,9 @@ require.config({
 		},
 		"backbone.upload-manager" : {
 			"deps" : ["jquery", "backbone", "backbone.defered-view-loader", "jquery.fileupload"]
+		},
+		"alertify" : {
+			"deps" : ["jquery"]
 		}
 		/*,
 		'facebook' : {

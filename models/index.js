@@ -2,9 +2,9 @@ var Sequelize  = require('sequelize');
 var config  = require('./conf').database;
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
-		sync: { force: true },
-		syncOnAssociation: true
-	}
+	sync: { force: true },
+	syncOnAssociation: true
+}
 );
 
 var models = [ 
@@ -20,8 +20,6 @@ models.forEach(function(model){
 });
 
 (function(m){
-	//m.usuario.hasMany( m.partidos, {  joinTableModel : m.usuario_partido, foreignKey : 'usuario_id', foreignKeyConstraint: true, allowNull: false } );
-	//m.partidos.hasMany( m.usuario, {  joinTableModel : m.usuario_partido, foreignKey : 'partido_id', foreignKeyConstraint: true, allowNull: false } );
 
 	m.rol.hasMany(m.usuario, { foreignKey: 'rol_id', foreignKeyConstraint: true});
 	m.usuario.hasMany( m.mascota, {  joinTableModel : m.mascotas, foreignKey : 'usuario_id', foreignKeyConstraint: true, allowNull: false } );

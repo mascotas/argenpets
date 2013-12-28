@@ -70,11 +70,15 @@ module.exports = function(app){
 			where: {nickname: req.query.user}
 		}).success(function(usuario){
 			if(usuario){
+				usuario.getMascota().success(function(mascotas) {
+				  res.json(mascotas);
+				})
+				/*
 				Mascotas.find({
 					where: {usuario_id: usuario.id}
 				}).success(function(mascotas){
 					res.json(mascotas);
-				})
+				})*/
 			}else{
 				res.send('no se encuentra usuario');
 			}

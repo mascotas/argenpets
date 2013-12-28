@@ -21,6 +21,7 @@ module.exports = function(app){
 		Rol.find(1).success(function(rol) {
 			if(rol){
 				req.body.rol_id = rol.dataValues.id;
+
 				Usuario.create(req.body).success(function(usuario){
 					usuario.nickname = 'u' + usuario.dataValues.id;
 
@@ -44,9 +45,10 @@ module.exports = function(app){
 					'nombre' : 'admin',
 					'estado' : 1
 				}).success(function(newRol){
+					req.body.rol_id = newRol.dataValues.id;
+
 					Usuario.create(req.body).success(function(usuario){
 						usuario.nickname = 'u' + usuario.dataValues.id;
-						usuario.rol_id = newRol.dataValues.id;
 
 						usuario.save().success(function(){
 

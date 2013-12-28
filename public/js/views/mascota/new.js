@@ -4,12 +4,14 @@ define([
   'text!templates/mascota/new.html',
   "models/mascota",
   "collections/tiposMascota",
+  "alertify",
   "bootstrap-select",
   "lib/jquery.iframe-transport",
   "lib/jquery.fileupload",
   "lib/backbone.defered-view-loader",
   "lib/backbone.upload-manager"
-  ], function($, Backbone, newMascotaTemplate, MascotaModel, TiposMascotaList){
+  
+  ], function($, Backbone, newMascotaTemplate, MascotaModel, TiposMascotaList, alertify){
 
     var NewMascotaView = Backbone.View.extend({
       events : {
@@ -36,6 +38,7 @@ define([
 
         $('select').selectpicker();
 
+        /*
         Backbone.TemplateManager.baseUrl = '{name}';
         
         var uploadManager = new Backbone.UploadManager({
@@ -47,6 +50,7 @@ define([
         });
 
         uploadManager.renderTo(this.$('div#manager-area'));
+        */
 
         this.delegateEvents();
 
@@ -60,9 +64,23 @@ define([
       },
       crear: function(event){
         if(event){ event.preventDefault(); }
-        var mascota = new MascotaModel();
-        //probar http://sroze.github.io/backbone-upload-manager/
 
+        var mascota = new MascotaModel();
+        mascota.set({
+          "nombre" : this.$('form input[name="nombre"]').val(),
+          "tipo"   : this.$('form select[name="tipo"]').val()
+        })
+
+        if(mascota.isValid()){
+          mascota.save(mascota.toJSON(), {
+            success: function(mascota){
+              console.log(mascota);
+            }
+          });  
+        }else{
+          alertify.error(mascota.validationError);
+        }
+        
 
       }
 

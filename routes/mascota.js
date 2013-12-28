@@ -13,6 +13,10 @@ module.exports = function(app){
 		})
 	};
 
+	Post = function(req, res){
+		console.log('bien bnsadm');
+	}
+
 	List = function(req, res){
 		Mascota.all().success(function(mascotas) {
 			res.send(mascotas)
@@ -24,30 +28,33 @@ module.exports = function(app){
 	};
 
 	Create = function(req, res) {
-		console.log(req.params);
-		res.send({asd: 1});
-
 		var TipoMascota = app.get('models').tipo_mascota;
 		var Usuario = app.get('models').usuario;
 
-		var mascota = {
-			'nombre' : 'carlitos',
-			'tipo_mascota_id' : 1
+		var $mascota = {
+			'nombre' : req.body.nombre,
+			'tipo_mascota_id' : req.body.tipo
 		}
 
-		//req.body.tipo_mascota_id
-		TipoMascota.find(1).success(function(tipoMascota) {
-			Usuario.find(1).success(function(usuario){
-				
-				Mascota.create(mascota).success(function(mascota){
-					usuario.setMascota([mascota]).success(function(resp){
-						console.log(resp)
-						res.send(mascota.dataValues);
-					})
-				}).error(function(err){
-					res.send(err);
-				});
-			})
+		Usuario.find(req.session.id).success(function(usuario){
+			if(usuario){
+				TipoMascota.find(req.body.tipo).success(function(tipoMascota) {
+					if(tipoMascota){
+						Mascota.create($mascota).success(function(mascota){
+							//TODO: no anda el addMascota, addMascotas, addMascotass, addmascota, addmascotas
+							usuario.addMascota(mascota).success(function(){
+								res.send('ok');
+							})
+						}).error(function(err){
+							res.send(err);
+						});
+					}else{
+						res.send('Tipo de mascota erroneo');
+					}
+				})
+			}else{
+				res.send('No logeado o no se encuentra el usuario');
+			}
 		})
 
 	};
@@ -77,10 +84,9 @@ module.exports = function(app){
 	}
 
 	controller = function(app){
-		app.get('/mascota', this.Create );
 		app.get('/mascota/tipos', this.Tipos);
 		app.get('/mascota/*', this.Get );
-		app.post('/mascota', this.Post);    
+		app.post('/mascota', this.Create);    
 		app.delete('/mascota/*', this.Delete);    
 		app.put('/mascota/*', this.Put);
 		
