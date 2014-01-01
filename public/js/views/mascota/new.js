@@ -6,10 +6,12 @@ define([
   "collections/tiposMascota",
   "alertify",
   "bootstrap-select",
+  /*
   "lib/jquery.iframe-transport",
   "lib/jquery.fileupload",
   "lib/backbone.defered-view-loader",
   "lib/backbone.upload-manager"
+  */
   
   ], function($, Backbone, newMascotaTemplate, MascotaModel, TiposMascotaList, alertify){
 
@@ -65,7 +67,9 @@ define([
       crear: function(event){
         if(event){ event.preventDefault(); }
 
+        var that = this;
         var mascota = new MascotaModel();
+
         mascota.set({
           "nombre" : this.$('form input[name="nombre"]').val(),
           "tipo"   : this.$('form select[name="tipo"]').val()
@@ -74,13 +78,14 @@ define([
         if(mascota.isValid()){
           mascota.save(mascota.toJSON(), {
             success: function(mascota){
-              console.log(mascota);
+              that.trigger("add", {attributes: mascota.toJSON()});
+              that.trigger("cancelar", {actionCommand: "save"});
+              that.remove();
             }
           });  
         }else{
           alertify.error(mascota.validationError);
         }
-        
 
       }
 

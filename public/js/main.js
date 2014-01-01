@@ -48,7 +48,8 @@ require.config({
 		"jquery.ui.widget" : "lib/jquery.ui.widget",
 		"jquery.fileupload" : "jquery.fileupload",
 		"jquery.iframe-transport" : "lib/jquery.iframe-transport",
-
+		"async" : "lib/async",
+        "google" : "models/google",
 		//'facebook': '//connect.facebook.net/en_US/all',
 		"alertify" : "lib/alertify"
 	}
@@ -63,5 +64,5 @@ require([
 	"bootstrap"
 	
 	], function($, _, Backbone, Router){
-		window.router = new Router();		
+		window.router = new Router();
 	});

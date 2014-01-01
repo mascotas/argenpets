@@ -1,7 +1,8 @@
-define(['jquery','backbone'], function($, Backbone){
+define(['jquery','backbone', 'models/mascota'], function($, Backbone, MascotaModel){
 	
 	var MascotasList = Backbone.Collection.extend({
-		url: 'usuario/mascotas',
+		model: MascotaModel,
+		url: 'usuario/mascotas'
 	});
 
 	return MascotasList;

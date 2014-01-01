@@ -2,15 +2,17 @@ module.exports = function(app){
 	var Mascota = app.get('models').mascota;
 
 	Get = function(req, res) {
-		Mascota.find(req.params[0]).success(function(mascota) {
-			console.log(mascota);
+		Mascota.find(req.query.id).success(function(mascota) {
+			res.send(mascota.dataValues);
 		})
 
+		/*
 		Mascota.find({
 			where: {nombre: req.params[0]},
 		}).success(function(mascota) {
 			console.log(mascota);
 		})
+		*/
 	};
 
 	Post = function(req, res){
@@ -30,6 +32,7 @@ module.exports = function(app){
 	Create = function(req, res) {
 		var TipoMascota = app.get('models').tipo_mascota;
 		var Usuario = app.get('models').usuario;
+		var Mascotas = app.get('models').mascotas;
 
 		var $mascota = {
 			'nombre' : req.body.nombre,
@@ -41,10 +44,25 @@ module.exports = function(app){
 				TipoMascota.find(req.body.tipo).success(function(tipoMascota) {
 					if(tipoMascota){
 						Mascota.create($mascota).success(function(mascota){
-							//TODO: no anda el addMascota, addMascotas, addMascotass, addmascota, addmascotas
-							usuario.addMascota(mascota).success(function(){
-								res.send('ok');
+							
+							var $mascotaUsuario = {
+								'mascota_id' : mascota.dataValues.id,
+								'usuario_id' : usuario.dataValues.id,
+								'cantidad' : 2
+							}
+
+							Mascotas.create($mascotaUsuario).success(function(mascotaUsuario){
+								res.send(mascotaUsuario);
 							})
+
+							/*
+							//TODO: no anda el addMascota, addMascotas, addMascotass, addmascota, addmascotas}
+							usuario.setMascota([mascota]).success(function(){
+								res.send('ok');
+							});
+							*/
+
+
 						}).error(function(err){
 							res.send(err);
 						});
@@ -85,7 +103,7 @@ module.exports = function(app){
 
 	controller = function(app){
 		app.get('/mascota/tipos', this.Tipos);
-		app.get('/mascota/*', this.Get );
+		app.get('/mascota', this.Get );
 		app.post('/mascota', this.Create);    
 		app.delete('/mascota/*', this.Delete);    
 		app.put('/mascota/*', this.Put);

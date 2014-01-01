@@ -66,6 +66,8 @@ module.exports = function(app){
 	Mascotas = function(req, res){
 		var Mascotas = app.get('models').mascotas;
 		
+		console.log(req.query);
+
 		Usuario.find({
 			where: {nickname: req.query.user}
 		}).success(function(usuario){

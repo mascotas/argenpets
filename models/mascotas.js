@@ -11,6 +11,10 @@ module.exports = function(sequelize, Seq){
       primaryKey: true,
       references: "usuario",
       referencesKey: "id"
+    },
+    cantidad: {
+      type: Seq.INTEGER,
+      defaultValue: 1
     }
   },{
     timestamps: false,

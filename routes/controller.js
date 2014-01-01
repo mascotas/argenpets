@@ -10,7 +10,29 @@ module.exports = function(app){
 
 	app.post('/upload', function(req, res){
 		console.log('post upload');
-	});	
+	});
+
+	app.get('/usuarios', function(req, res){
+		var Usuario = app.get('models').usuario;
+
+		if(typeof req.session.id == "undefined"){
+			Usuario.all().success(function(usuarios) {
+				res.send(usuarios)
+			})
+		}else{
+			Usuario.findAll({
+				where: {
+					id: {
+						ne: req.session.id //not equal
+					}
+				}
+			}).success(function(usuarios) {
+				res.send(usuarios)
+			})
+		}
+
+		
+	});
 
 	app.get('/',  function(req, res) {
 		if(typeof req.session.id == "undefined")
@@ -26,7 +48,7 @@ module.exports = function(app){
 		console.log(req.params['usuario']);
 	} );*/
 
-	usuarioRoute(app);
-	mascotaRoute(app);
+usuarioRoute(app);
+mascotaRoute(app);
 
 };
