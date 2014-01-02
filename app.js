@@ -15,7 +15,8 @@ app.use(express.logger('dev'));
 
 app.set('models', require('./models') );
 
-app.use(express.bodyParser());
+app.use(express.bodyParser({ keepExtensions: true, uploadDir: '/uploads' }));
+app.use(express.multipart());
 app.use(express.methodOverride());
 app.use(express.cookieParser('asdasdasd'));
 app.use(express.cookieSession());
