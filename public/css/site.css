@@ -1,0 +1,9 @@
+/*usuario list options view*/
+.userOption{
+	display: none;
+}
+
+.userOption:hover{
+	display: block;
+}
+/*-------------------------*/

@@ -7,12 +7,11 @@ define([
   "alertify",
   "bootstrap-select",
   /*
-  "lib/jquery.iframe-transport",
-  "lib/jquery.fileupload",
-  "lib/backbone.defered-view-loader",
-  "lib/backbone.upload-manager"
+  "jquery.iframe-transport",
+  "jquery.fileupload",
+  "backbone.defered-view-loader",
+  "backbone.upload-manager"
   */
-  
   ], function($, Backbone, newMascotaTemplate, MascotaModel, TiposMascotaList, alertify){
 
     var NewMascotaView = Backbone.View.extend({

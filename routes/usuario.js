@@ -9,7 +9,7 @@ module.exports = function(app){
 
 	List = function(req, res){
 		Usuario.all().success(function(usuarios) {
-			res.send(usuarios)
+			res.send(usuarios.toJSON())
 		})
 	};
 
