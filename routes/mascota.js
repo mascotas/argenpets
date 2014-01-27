@@ -52,7 +52,10 @@ module.exports = function(app){
 							}
 
 							Mascotas.create($mascotaUsuario).success(function(mascotaUsuario){
-								res.send(mascotaUsuario);
+								var resp = mascotaUsuario.toJSON();
+								resp.id = resp.mascota_id;
+								delete resp.mascota_id;
+								res.send(resp);
 							})
 
 							/*

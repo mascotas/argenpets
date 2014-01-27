@@ -3,9 +3,9 @@ define([
   "underscore",
   "backbone",
   "views/menu",
-  'text!templates/home.html',
-  "google"
-  ], function($, _, Backbone, MenuView, homeTemplate, google){
+  'text!templates/home.html'
+  
+  ], function($, _, Backbone, MenuView, homeTemplate){
 
     var AppView = Backbone.View.extend({
       el : $("#app"),
@@ -22,8 +22,7 @@ define([
       render: function(){
         this.$el.html(this.template());
 
-        var mapCanvas = $("#map_canvas").get(0);
-        //google.addMapToCanvas( mapCanvas );
+        
 
         //$('#menu-container').html(this.menuView.render().el);
       }

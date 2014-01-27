@@ -3,8 +3,9 @@ define([
   "underscore",
   "backbone",
   "models/mascota",
-  'text!templates/mascota/show.html'
-  ], function($, _, Backbone, MascotaModel, mascotaShowTemplate){
+  'text!templates/mascota/show.html',
+  "google"
+  ], function($, _, Backbone, MascotaModel, mascotaShowTemplate, google){
 
     var MascotaListView = Backbone.View.extend({
       className: "row",
@@ -28,6 +29,9 @@ define([
         this.$el.html(this.template({
           model: this.model.toJSON()
         }));
+
+        var mapCanvas = this.$(".map_canvas").get(0);
+        google.addMapToCanvas( mapCanvas );
 
         this.delegateEvents();
 
